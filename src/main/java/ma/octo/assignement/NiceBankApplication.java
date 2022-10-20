@@ -1,10 +1,10 @@
 package ma.octo.assignement;
 
-import ma.octo.assignement.entities.Account;
-import ma.octo.assignement.entities.User;
-import ma.octo.assignement.entities.Transfer;
-import ma.octo.assignement.repository.AccountRepository;
-import ma.octo.assignement.repository.UserRepository;
+import ma.octo.assignement.domain.Compte;
+import ma.octo.assignement.domain.Utilisateur;
+import ma.octo.assignement.domain.Transfer;
+import ma.octo.assignement.repository.CompteRepository;
+import ma.octo.assignement.repository.UtilisateurRepository;
 import ma.octo.assignement.repository.TransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -17,9 +17,9 @@ import java.util.Date;
 @SpringBootApplication
 public class NiceBankApplication implements CommandLineRunner {
 	@Autowired
-	private AccountRepository compteRepository;
+	private CompteRepository compteRepository;
 	@Autowired
-	private UserRepository utilisateurRepository;
+	private UtilisateurRepository utilisateurRepository;
 	@Autowired
 	private TransferRepository transferRepository;
 
@@ -29,7 +29,7 @@ public class NiceBankApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... strings) throws Exception {
-		User utilisateur1 = new User();
+		Utilisateur utilisateur1 = new Utilisateur();
 		utilisateur1.setUsername("user1");
 		utilisateur1.setLastname("last1");
 		utilisateur1.setFirstname("first1");
@@ -38,7 +38,7 @@ public class NiceBankApplication implements CommandLineRunner {
 		utilisateurRepository.save(utilisateur1);
 
 
-		User utilisateur2 = new User();
+		Utilisateur utilisateur2 = new Utilisateur();
 		utilisateur2.setUsername("user2");
 		utilisateur2.setLastname("last2");
 		utilisateur2.setFirstname("first2");
@@ -46,7 +46,7 @@ public class NiceBankApplication implements CommandLineRunner {
 
 		utilisateurRepository.save(utilisateur2);
 
-		Account compte1 = new Account();
+		Compte compte1 = new Compte();
 		compte1.setNrCompte("010000A000001000");
 		compte1.setRib("RIB1");
 		compte1.setSolde(BigDecimal.valueOf(200000L));
@@ -54,7 +54,7 @@ public class NiceBankApplication implements CommandLineRunner {
 
 		compteRepository.save(compte1);
 
-		Account compte2 = new Account();
+		Compte compte2 = new Compte();
 		compte2.setNrCompte("010000B025001000");
 		compte2.setRib("RIB2");
 		compte2.setSolde(BigDecimal.valueOf(140000L));
