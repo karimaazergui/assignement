@@ -1,6 +1,6 @@
-package ma.octo.assignement.domain;
+package ma.octo.assignement.entities;
 
-import ma.octo.assignement.domain.util.EventType;
+import ma.octo.assignement.entities.util.EventType;
 
 import javax.persistence.*;
 

@@ -1,7 +1,7 @@
 package ma.octo.assignement.service;
 
-import ma.octo.assignement.domain.Audit;
-import ma.octo.assignement.domain.util.EventType;
+import ma.octo.assignement.entities.Audit;
+import ma.octo.assignement.entities.util.EventType;
 import ma.octo.assignement.repository.AuditTransferRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,6 @@ public class AuditService implements IAuditService {
         audit.setMessage(message);
         auditTransferRepository.save(audit);
     }
-
 
     public void auditDeposit(String message) {
 

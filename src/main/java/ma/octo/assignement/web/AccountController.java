@@ -1,10 +1,8 @@
 package ma.octo.assignement.web;
 
-import ma.octo.assignement.domain.Compte;
-import ma.octo.assignement.repository.CompteRepository;
+import ma.octo.assignement.entities.Compte;
 import ma.octo.assignement.service.ICompteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

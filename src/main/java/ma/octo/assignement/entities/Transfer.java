@@ -1,39 +1,38 @@
-package ma.octo.assignement.domain;
+package ma.octo.assignement.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "DEP")
-public class MoneyDeposit {
-
+@Table(name = "TRAN")
+public class Transfer {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
   @Column(precision = 16, scale = 2, nullable = false)
-  private BigDecimal Montant;
+  private BigDecimal montantTransfer;
 
   @Column
   @Temporal(TemporalType.TIMESTAMP)
   private Date dateExecution;
 
-  @Column
-  private String nom_prenom_emetteur;
+  @ManyToOne
+  private Compte compteEmetteur;
 
   @ManyToOne
   private Compte compteBeneficiaire;
 
   @Column(length = 200)
-  private String motifDeposit;
+  private String motifTransfer;
 
-  public BigDecimal getMontant() {
-    return Montant;
+  public BigDecimal getMontantTransfer() {
+    return montantTransfer;
   }
 
-  public void setMontant(BigDecimal montant) {
-    this.Montant = montant;
+  public void setMontantTransfer(BigDecimal montantTransfer) {
+    this.montantTransfer = montantTransfer;
   }
 
   public Date getDateExecution() {
@@ -44,6 +43,14 @@ public class MoneyDeposit {
     this.dateExecution = dateExecution;
   }
 
+  public Compte getCompteEmetteur() {
+    return compteEmetteur;
+  }
+
+  public void setCompteEmetteur(Compte compteEmetteur) {
+    this.compteEmetteur = compteEmetteur;
+  }
+
   public Compte getCompteBeneficiaire() {
     return compteBeneficiaire;
   }
@@ -52,12 +59,12 @@ public class MoneyDeposit {
     this.compteBeneficiaire = compteBeneficiaire;
   }
 
-  public String getMotifDeposit() {
-    return motifDeposit;
+  public String getMotifTransfer() {
+    return motifTransfer;
   }
 
-  public void setMotifDeposit(String motifDeposit) {
-    this.motifDeposit = motifDeposit;
+  public void setMotifTransfer(String motifTransfer) {
+    this.motifTransfer = motifTransfer;
   }
 
   public Long getId() {
@@ -66,13 +73,5 @@ public class MoneyDeposit {
 
   public void setId(Long id) {
     this.id = id;
-  }
-
-  public String getNom_prenom_emetteur() {
-    return nom_prenom_emetteur;
-  }
-
-  public void setNom_prenom_emetteur(String nom_prenom_emetteur) {
-    this.nom_prenom_emetteur = nom_prenom_emetteur;
   }
 }

@@ -1,4 +1,4 @@
-package ma.octo.assignement.domain.util;
+package ma.octo.assignement.entities.util;
 
 public enum EventType {
 

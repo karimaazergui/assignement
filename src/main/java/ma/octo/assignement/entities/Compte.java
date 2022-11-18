@@ -1,4 +1,4 @@
-package ma.octo.assignement.domain;
+package ma.octo.assignement.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

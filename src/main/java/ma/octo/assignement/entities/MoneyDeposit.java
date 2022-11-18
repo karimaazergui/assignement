@@ -1,38 +1,39 @@
-package ma.octo.assignement.domain;
+package ma.octo.assignement.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "TRAN")
-public class Transfer {
+@Table(name = "DEP")
+public class MoneyDeposit {
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
   @Column(precision = 16, scale = 2, nullable = false)
-  private BigDecimal montantTransfer;
+  private BigDecimal Montant;
 
   @Column
   @Temporal(TemporalType.TIMESTAMP)
   private Date dateExecution;
 
-  @ManyToOne
-  private Compte compteEmetteur;
+  @Column
+  private String nom_prenom_emetteur;
 
   @ManyToOne
   private Compte compteBeneficiaire;
 
   @Column(length = 200)
-  private String motifTransfer;
+  private String motifDeposit;
 
-  public BigDecimal getMontantTransfer() {
-    return montantTransfer;
+  public BigDecimal getMontant() {
+    return Montant;
   }
 
-  public void setMontantTransfer(BigDecimal montantTransfer) {
-    this.montantTransfer = montantTransfer;
+  public void setMontant(BigDecimal montant) {
+    this.Montant = montant;
   }
 
   public Date getDateExecution() {
@@ -43,14 +44,6 @@ public class Transfer {
     this.dateExecution = dateExecution;
   }
 
-  public Compte getCompteEmetteur() {
-    return compteEmetteur;
-  }
-
-  public void setCompteEmetteur(Compte compteEmetteur) {
-    this.compteEmetteur = compteEmetteur;
-  }
-
   public Compte getCompteBeneficiaire() {
     return compteBeneficiaire;
   }
@@ -59,12 +52,12 @@ public class Transfer {
     this.compteBeneficiaire = compteBeneficiaire;
   }
 
-  public String getMotifTransfer() {
-    return motifTransfer;
+  public String getMotifDeposit() {
+    return motifDeposit;
   }
 
-  public void setMotifTransfer(String motifTransfer) {
-    this.motifTransfer = motifTransfer;
+  public void setMotifDeposit(String motifDeposit) {
+    this.motifDeposit = motifDeposit;
   }
 
   public Long getId() {
@@ -73,5 +66,13 @@ public class Transfer {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public String getNom_prenom_emetteur() {
+    return nom_prenom_emetteur;
+  }
+
+  public void setNom_prenom_emetteur(String nom_prenom_emetteur) {
+    this.nom_prenom_emetteur = nom_prenom_emetteur;
   }
 }

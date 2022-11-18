@@ -1,6 +1,6 @@
 package ma.octo.assignement.service;
 
-import ma.octo.assignement.domain.Utilisateur;
+import ma.octo.assignement.entities.Utilisateur;
 
 import java.util.List;
 

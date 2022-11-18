@@ -1,7 +1,6 @@
 package ma.octo.assignement.service;
 
-import ma.octo.assignement.domain.Utilisateur;
-import ma.octo.assignement.repository.CompteRepository;
+import ma.octo.assignement.entities.Utilisateur;
 import ma.octo.assignement.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
