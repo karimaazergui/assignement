@@ -11,6 +11,7 @@ import ma.octo.assignement.repository.CompteRepository;
 import ma.octo.assignement.repository.UtilisateurRepository;
 import ma.octo.assignement.repository.TransferRepository;
 import ma.octo.assignement.service.AuditService;
+import ma.octo.assignement.service.ITransferService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +32,13 @@ class TransferController {
     @Autowired
     private CompteRepository rep1;
     @Autowired
-    private TransferRepository re2;
+    ITransferService iTransferService;
     @Autowired
     private AuditService monservice;
 
     @GetMapping("/")
     List<Transfer> loadAll() {
-        LOGGER.info("Liste des Transferts");
-            return CollectionUtils.isEmpty(re2.findAll()) ? null :re2.findAll() ;
+       return iTransferService.loadAllTransfers();
     }
 
 
