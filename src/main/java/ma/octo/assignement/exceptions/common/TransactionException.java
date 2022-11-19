@@ -1,4 +1,4 @@
-package ma.octo.assignement.exceptions;
+package ma.octo.assignement.exceptions.common;
 
 public class TransactionException extends Exception {
 

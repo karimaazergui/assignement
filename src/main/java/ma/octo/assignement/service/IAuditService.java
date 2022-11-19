@@ -1,6 +1,8 @@
 package ma.octo.assignement.service;
 
+import ma.octo.assignement.entities.util.EventType;
+
 public interface IAuditService {
-    public void auditTransfer(String message);
-    public void auditDeposit(String message);
+    public void audit(String message, EventType auditType);
+
 }

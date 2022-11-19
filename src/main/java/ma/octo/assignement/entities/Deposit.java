@@ -1,40 +1,35 @@
 package ma.octo.assignement.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "TRAN")
+@Table(name = "DEP")
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class Transfer {
+public class Deposit {
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
   @Column(precision = 16, scale = 2, nullable = false)
-  private BigDecimal montantTransfer;
+  private BigDecimal Montant;
 
   @Column
   @Temporal(TemporalType.TIMESTAMP)
   private Date dateExecution;
 
-  @ManyToOne
-  private Account compteEmetteur;
+  @Column
+  private String nomPrenomEmetteur;
 
   @ManyToOne
   private Account compteBeneficiaire;
 
   @Column(length = 200)
-  private String motifTransfer;
+  private String motifDeposit;
 
 
 }

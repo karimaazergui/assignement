@@ -1,8 +1,9 @@
-package ma.octo.assignement.service;
+package ma.octo.assignement.service.implementation;
 
 import ma.octo.assignement.entities.Audit;
 import ma.octo.assignement.entities.util.EventType;
 import ma.octo.assignement.repository.AuditTransferRepository;
+import ma.octo.assignement.service.IAuditService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,23 +20,15 @@ public class AuditService implements IAuditService {
     @Autowired
     private AuditTransferRepository auditTransferRepository;
 
-    public void auditTransfer(String message) {
+    public void audit(String message,EventType auditType) {
 
-        LOGGER.info("Audit de l'événement {}", EventType.TRANSFER);
+        LOGGER.info("Audit de l'événement {}", auditType);
 
         Audit audit = new Audit();
-        audit.setEventType(EventType.TRANSFER);
+        audit.setEventType(auditType);
         audit.setMessage(message);
         auditTransferRepository.save(audit);
     }
 
-    public void auditDeposit(String message) {
 
-        LOGGER.info("Audit de l'événement {}", EventType.DEPOSIT);
-
-        Audit audit = new Audit();
-        audit.setEventType(EventType.DEPOSIT);
-        audit.setMessage(message);
-        auditTransferRepository.save(audit);
-    }
 }

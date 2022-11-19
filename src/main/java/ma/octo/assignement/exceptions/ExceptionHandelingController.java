@@ -1,7 +1,7 @@
-package ma.octo.assignement.web.common;
+package ma.octo.assignement.exceptions;
 
-import ma.octo.assignement.exceptions.CompteNonExistantException;
-import ma.octo.assignement.exceptions.SoldeDisponibleInsuffisantException;
+import ma.octo.assignement.exceptions.common.CompteNonExistantException;
+import ma.octo.assignement.exceptions.common.SoldeDisponibleInsuffisantException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

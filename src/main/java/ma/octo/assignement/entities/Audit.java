@@ -1,11 +1,13 @@
 package ma.octo.assignement.entities;
 
+import lombok.Data;
 import ma.octo.assignement.entities.util.EventType;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "AUDIT")
+@Data
 public class Audit {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,27 +19,5 @@ public class Audit {
   @Enumerated(EnumType.STRING)
   private EventType eventType;
 
-  public Long getId() {
-    return id;
-  }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getMessage() {
-    return message;
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
-  }
-
-  public EventType getEventType() {
-    return eventType;
-  }
-
-  public void setEventType(EventType eventType) {
-    this.eventType = eventType;
-  }
 }
