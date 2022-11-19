@@ -23,7 +23,7 @@ public class DepositContoller {
     List<Deposit> allDeposits() {
         return iDepositService.allDeposits();
     }
-    @PostMapping("/saveDeposits")
+    @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public void createTransaction(@RequestBody DepositDto depositDto) throws TransactionException, CompteNonExistantException, SoldeDisponibleInsuffisantException, AccountNotFoundException {
         iDepositService.createTransaction(depositDto);

@@ -39,7 +39,7 @@ public class DepositService implements IDepositService {
     @Override
     public List<Deposit> allDeposits() {
         LOGGER.info("Liste des Deposits");
-        return CollectionUtils.isEmpty(depositRepository.findAll()) ? null :depositRepository.findAll() ;
+        return depositRepository.findAll() ;
     }
 
     @Override
