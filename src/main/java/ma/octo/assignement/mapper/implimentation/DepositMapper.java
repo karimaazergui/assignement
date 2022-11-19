@@ -6,9 +6,10 @@ import ma.octo.assignement.entities.Account;
 import ma.octo.assignement.entities.Deposit;
 import ma.octo.assignement.exceptions.common.TransactionException;
 import ma.octo.assignement.mapper.IDepositMapper;
+import org.springframework.stereotype.Component;
 
 import javax.security.auth.login.AccountNotFoundException;
-
+@Component
 public class DepositMapper implements IDepositMapper {
     @Override
     public  Deposit dtoToEntity(DepositDto depositDto) throws AccountNotFoundException, TransactionException {

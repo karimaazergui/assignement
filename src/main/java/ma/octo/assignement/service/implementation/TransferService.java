@@ -70,14 +70,7 @@ public class TransferService implements ITransferService {
         transfer.getCompteBeneficiaire().setSolde(new BigDecimal(transfer.getCompteBeneficiaire().getSolde().intValue() + transferDto.getMontant().intValue()));
         compteRepository.save(transfer.getCompteBeneficiaire());
 
-
-        Transfer transferToSave = new Transfer();
-        transfer.setDateExecution(transferDto.getDate());
-        transfer.setCompteBeneficiaire(transfer.getCompteBeneficiaire());
-        transfer.setCompteEmetteur(transfer.getCompteEmetteur());
-        transfer.setMontantTransfer(transferDto.getMontant());
-
-        transferRepository.save(transferToSave);
+        transferRepository.save(transfer);
 
         String message="Transfer depuis " + transferDto.getNrCompteEmetteur() + " vers " + transferDto
                 .getNrCompteBeneficiaire() + " d'un montant de " + transferDto.getMontant()

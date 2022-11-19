@@ -6,6 +6,7 @@ import ma.octo.assignement.entities.Deposit;
 import ma.octo.assignement.entities.util.EventType;
 import ma.octo.assignement.exceptions.common.CompteNonExistantException;
 import ma.octo.assignement.exceptions.common.TransactionException;
+import ma.octo.assignement.mapper.IDepositMapper;
 import ma.octo.assignement.repository.AccountRepository;
 import ma.octo.assignement.repository.DepositRepository;
 import ma.octo.assignement.service.IAccountService;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import javax.security.auth.login.AccountNotFoundException;
 import java.math.BigDecimal;
 import java.util.List;
 @Service
@@ -28,8 +30,9 @@ public class DepositService implements IDepositService {
     @Autowired
     IAccountService iAccountService;
     @Autowired
+    IDepositMapper iDepositMapper;
+    @Autowired
     AccountRepository compteRepository;
-
     @Autowired
     IAuditService iAuditService;
     Logger LOGGER = LoggerFactory.getLogger(TransferService.class);
@@ -40,7 +43,7 @@ public class DepositService implements IDepositService {
     }
 
     @Override
-    public void createTransaction(DepositDto depositDto) throws CompteNonExistantException, TransactionException {
+    public void createTransaction(DepositDto depositDto) throws CompteNonExistantException, TransactionException, AccountNotFoundException {
         Account compteBeneficiaire = iAccountService.getCompteByRib(depositDto.getRibCompteBeneficiaire());
         if(depositDto.getMontantVersement() == null ||
                 depositDto.getMontantVersement().compareTo(BigDecimal.ZERO) == 0) {
@@ -57,12 +60,7 @@ public class DepositService implements IDepositService {
         compteBeneficiaire.setSolde(compteBeneficiaire.getSolde().add(depositDto.getMontantVersement()));
         compteRepository.save(compteBeneficiaire);
 
-        Deposit deposit= new Deposit();
-        deposit.setMontant(depositDto.getMontantVersement());
-        deposit.setCompteBeneficiaire(compteBeneficiaire);
-        deposit.setMotifDeposit(depositDto.getMotifVersement());
-        deposit.setNomPrenomEmetteur(depositDto.getNomPrenomEmetteur());
-        deposit.setDateExecution(depositDto.getDateExecution());
+        Deposit deposit= iDepositMapper.dtoToEntity(depositDto);
 
         depositRepository.save(deposit);
 
