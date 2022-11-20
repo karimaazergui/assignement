@@ -53,7 +53,7 @@ public class NiceBankApplication implements CommandLineRunner {
 		utilisateur2.setFirstname("first2");
 		utilisateur2.setPassword(encoder.encode("rootroot"));
 		utilisateur2.setGender("Female");
-		utilisateur2.setRole("ADMIN");
+		utilisateur2.setRole("USER");
 		utilisateur2.setActive(true);
 		utilisateurService.addUser(utilisateur2);
 

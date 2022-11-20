@@ -17,7 +17,7 @@ import java.util.List;
 public class DepositContoller {
     @Autowired
     IDepositService iDepositService;
-    @GetMapping("/")
+    @GetMapping("")
     List<Deposit> allDeposits() {
         return iDepositService.allDeposits();
     }

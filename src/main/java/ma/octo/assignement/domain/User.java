@@ -1,5 +1,6 @@
 package ma.octo.assignement.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,10 +18,11 @@ public class User implements Serializable {
   @Column(length = 10, nullable = false, unique = true)
   private String username;
   @Column( nullable = false)
+  @JsonIgnore
   private String password;
-  @Column()
+  @Column(nullable = false)
   private boolean active;
-  @Column(length = 10)
+  @Column(length = 10,nullable = false)
   private String role;
   @Column(length = 10, nullable = false)
   private String gender;

@@ -18,7 +18,7 @@ import java.util.List;
 class TransferController {
     @Autowired
     ITransferService iTransferService;
-    @GetMapping("/")
+    @GetMapping("")
     List<Transfer> allTransfers() {
        return iTransferService.allTransfers();
     }

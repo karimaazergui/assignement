@@ -13,7 +13,7 @@ import java.util.List;
 public class AccountController {
    @Autowired
    IAccountService iCompteService;
-    @GetMapping("/")
+    @GetMapping("")
     List<Account> allAccounts() {
    return iCompteService.allAccounts();
     }
