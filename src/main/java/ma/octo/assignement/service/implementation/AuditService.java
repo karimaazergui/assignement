@@ -1,7 +1,7 @@
 package ma.octo.assignement.service.implementation;
 
-import ma.octo.assignement.entities.Audit;
-import ma.octo.assignement.entities.util.EventType;
+import ma.octo.assignement.domain.Audit;
+import ma.octo.assignement.domain.util.EventType;
 import ma.octo.assignement.repository.AuditTransferRepository;
 import ma.octo.assignement.service.IAuditService;
 import org.slf4j.Logger;

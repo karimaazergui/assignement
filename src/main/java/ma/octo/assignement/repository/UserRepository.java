@@ -1,6 +1,6 @@
 package ma.octo.assignement.repository;
 
-import ma.octo.assignement.entities.User;
+import ma.octo.assignement.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package ma.octo.assignement.entities;
+package ma.octo.assignement.domain;
 
 import lombok.Data;
 
@@ -16,11 +16,11 @@ public class User implements Serializable {
 
   @Column(length = 10, nullable = false, unique = true)
   private String username;
-  @Column(length = 10, nullable = false)
-  private String passWord;
+  @Column( nullable = false)
+  private String password;
   @Column()
   private boolean active;
-  @Column(length = 10, nullable = false)
+  @Column(length = 10)
   private String role;
   @Column(length = 10, nullable = false)
   private String gender;

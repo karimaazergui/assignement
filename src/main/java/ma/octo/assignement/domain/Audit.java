@@ -1,7 +1,7 @@
-package ma.octo.assignement.entities;
+package ma.octo.assignement.domain;
 
 import lombok.Data;
-import ma.octo.assignement.entities.util.EventType;
+import ma.octo.assignement.domain.util.EventType;
 
 import javax.persistence.*;
 

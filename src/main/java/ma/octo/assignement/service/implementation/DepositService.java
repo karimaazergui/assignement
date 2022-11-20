@@ -1,14 +1,13 @@
 package ma.octo.assignement.service.implementation;
 
 import ma.octo.assignement.dto.DepositDto;
-import ma.octo.assignement.entities.Account;
-import ma.octo.assignement.entities.Deposit;
-import ma.octo.assignement.entities.util.EventType;
-import ma.octo.assignement.exceptions.common.CompteNonExistantException;
-import ma.octo.assignement.exceptions.common.DepositNonExistantException;
-import ma.octo.assignement.exceptions.common.TransactionException;
+import ma.octo.assignement.domain.Account;
+import ma.octo.assignement.domain.Deposit;
+import ma.octo.assignement.domain.util.EventType;
+import ma.octo.assignement.exceptions.CompteNonExistantException;
+import ma.octo.assignement.exceptions.DepositNonExistantException;
+import ma.octo.assignement.exceptions.TransactionException;
 import ma.octo.assignement.mapper.IDepositMapper;
-import ma.octo.assignement.mapper.implimentation.DepositMapper;
 import ma.octo.assignement.repository.AccountRepository;
 import ma.octo.assignement.repository.DepositRepository;
 import ma.octo.assignement.service.IAccountService;
@@ -18,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import javax.security.auth.login.AccountNotFoundException;
 import java.math.BigDecimal;

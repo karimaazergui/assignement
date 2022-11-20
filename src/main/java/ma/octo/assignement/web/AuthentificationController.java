@@ -1,6 +1,6 @@
-package ma.octo.assignement.controller;
+package ma.octo.assignement.web;
 
-import ma.octo.assignement.entities.User;
+import ma.octo.assignement.domain.User;
 import ma.octo.assignement.security.JwtUtil;
 import ma.octo.assignement.security.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,6 @@ public class AuthentificationController {
 
         @Autowired
         private AuthenticationManager authenticationManager;
-
         @Autowired
         private JwtUtil jwtTokenUtil;
         @Autowired
@@ -31,7 +30,7 @@ public class AuthentificationController {
 
             try {
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                        user.getUsername(),user.getPassWord()));
+                        user.getUsername(),user.getPassword()));
             }
             catch(BadCredentialsException e){
                 throw new Exception("incorrect username or password",e);

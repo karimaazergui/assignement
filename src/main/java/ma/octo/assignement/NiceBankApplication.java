@@ -1,9 +1,9 @@
 package ma.octo.assignement;
 
-import ma.octo.assignement.entities.Account;
+import ma.octo.assignement.domain.Account;
 
-import ma.octo.assignement.entities.User;
-import ma.octo.assignement.entities.Transfer;
+import ma.octo.assignement.domain.User;
+import ma.octo.assignement.domain.Transfer;
 import ma.octo.assignement.mapper.ITransferMapper;
 
 import ma.octo.assignement.service.IAccountService;
@@ -41,17 +41,21 @@ public class NiceBankApplication implements CommandLineRunner {
 		utilisateur1.setLastname("last1");
 		utilisateur1.setFirstname("first1");
 		utilisateur1.setGender("Male");
-		utilisateur1.setPassWord(encoder.encode("rootroot"));
-		utilisateurService.addUtilisateur(utilisateur1);
+		utilisateur1.setRole("ADMIN");
+		utilisateur1.setActive(true);
+		utilisateur1.setPassword(encoder.encode("rootroot"));
+		utilisateurService.addUser(utilisateur1);
 
 
 		User utilisateur2 = new User();
 		utilisateur2.setUsername("user2");
 		utilisateur2.setLastname("last2");
 		utilisateur2.setFirstname("first2");
-		utilisateur2.setPassWord(encoder.encode("rootroot"));
+		utilisateur2.setPassword(encoder.encode("rootroot"));
 		utilisateur2.setGender("Female");
-		utilisateurService.addUtilisateur(utilisateur2);
+		utilisateur2.setRole("ADMIN");
+		utilisateur2.setActive(true);
+		utilisateurService.addUser(utilisateur2);
 
 		Account compte1 = new Account();
 		compte1.setNrCompte("010000A000001000");

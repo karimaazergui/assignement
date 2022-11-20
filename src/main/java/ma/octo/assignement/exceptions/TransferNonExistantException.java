@@ -1,4 +1,4 @@
-package ma.octo.assignement.exceptions.common;
+package ma.octo.assignement.exceptions;
 
 public class TransferNonExistantException extends Exception{
 

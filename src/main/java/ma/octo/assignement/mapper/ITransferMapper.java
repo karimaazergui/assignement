@@ -1,8 +1,8 @@
 package ma.octo.assignement.mapper;
 
-import ma.octo.assignement.entities.Transfer;
+import ma.octo.assignement.domain.Transfer;
 import ma.octo.assignement.dto.TransferDto;
-import ma.octo.assignement.exceptions.common.TransactionException;
+import ma.octo.assignement.exceptions.TransactionException;
 
 import javax.security.auth.login.AccountNotFoundException;
 

@@ -1,11 +1,11 @@
 package ma.octo.assignement.service;
 
-import ma.octo.assignement.entities.User;
+import ma.octo.assignement.domain.User;
 
 import java.util.List;
 
 public interface IUserService {
     List<User> allUsers();
-    void addUtilisateur(User utilisateur);
+    void addUser(User utilisateur);
 
 }

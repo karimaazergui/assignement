@@ -1,12 +1,10 @@
-package ma.octo.assignement.controller;
+package ma.octo.assignement.web;
 
 import ma.octo.assignement.dto.DepositDto;
-import ma.octo.assignement.dto.TransferDto;
-import ma.octo.assignement.entities.Deposit;
-import ma.octo.assignement.entities.Transfer;
-import ma.octo.assignement.exceptions.common.CompteNonExistantException;
-import ma.octo.assignement.exceptions.common.SoldeDisponibleInsuffisantException;
-import ma.octo.assignement.exceptions.common.TransactionException;
+import ma.octo.assignement.domain.Deposit;
+import ma.octo.assignement.exceptions.CompteNonExistantException;
+import ma.octo.assignement.exceptions.SoldeDisponibleInsuffisantException;
+import ma.octo.assignement.exceptions.TransactionException;
 import ma.octo.assignement.service.IDepositService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

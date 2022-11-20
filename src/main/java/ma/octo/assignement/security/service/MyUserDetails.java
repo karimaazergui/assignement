@@ -1,7 +1,7 @@
 package ma.octo.assignement.security.service;
 
 
-import ma.octo.assignement.entities.User;
+import ma.octo.assignement.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +18,7 @@ public class MyUserDetails implements UserDetails {
     private List<GrantedAuthority> authorityList;
     public MyUserDetails(User user) {
         this.username = user.getUsername();
-        this.password = user.getPassWord();
+        this.password = user.getPassword();
         this.active= user.isActive();
         this.authorityList = Arrays.stream(user.getRole().split(","))
                 .map(SimpleGrantedAuthority::new)

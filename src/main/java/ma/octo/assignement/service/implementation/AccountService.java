@@ -1,7 +1,7 @@
 package ma.octo.assignement.service.implementation;
 
-import ma.octo.assignement.entities.Account;
-import ma.octo.assignement.exceptions.common.CompteNonExistantException;
+import ma.octo.assignement.domain.Account;
+import ma.octo.assignement.exceptions.CompteNonExistantException;
 import ma.octo.assignement.service.IAccountService;
 import ma.octo.assignement.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;

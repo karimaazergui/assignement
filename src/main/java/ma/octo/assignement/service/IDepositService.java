@@ -1,10 +1,10 @@
 package ma.octo.assignement.service;
 
 import ma.octo.assignement.dto.DepositDto;
-import ma.octo.assignement.entities.Deposit;
-import ma.octo.assignement.exceptions.common.CompteNonExistantException;
-import ma.octo.assignement.exceptions.common.DepositNonExistantException;
-import ma.octo.assignement.exceptions.common.TransactionException;
+import ma.octo.assignement.domain.Deposit;
+import ma.octo.assignement.exceptions.CompteNonExistantException;
+import ma.octo.assignement.exceptions.DepositNonExistantException;
+import ma.octo.assignement.exceptions.TransactionException;
 
 import javax.security.auth.login.AccountNotFoundException;
 import java.util.List;

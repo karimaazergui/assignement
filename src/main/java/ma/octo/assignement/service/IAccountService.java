@@ -1,7 +1,7 @@
 package ma.octo.assignement.service;
 
-import ma.octo.assignement.entities.Account;
-import ma.octo.assignement.exceptions.common.CompteNonExistantException;
+import ma.octo.assignement.domain.Account;
+import ma.octo.assignement.exceptions.CompteNonExistantException;
 
 import java.util.List;
 
