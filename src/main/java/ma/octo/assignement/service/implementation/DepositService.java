@@ -5,8 +5,10 @@ import ma.octo.assignement.entities.Account;
 import ma.octo.assignement.entities.Deposit;
 import ma.octo.assignement.entities.util.EventType;
 import ma.octo.assignement.exceptions.common.CompteNonExistantException;
+import ma.octo.assignement.exceptions.common.DepositNonExistantException;
 import ma.octo.assignement.exceptions.common.TransactionException;
 import ma.octo.assignement.mapper.IDepositMapper;
+import ma.octo.assignement.mapper.implimentation.DepositMapper;
 import ma.octo.assignement.repository.AccountRepository;
 import ma.octo.assignement.repository.DepositRepository;
 import ma.octo.assignement.service.IAccountService;
@@ -35,7 +37,7 @@ public class DepositService implements IDepositService {
     AccountRepository compteRepository;
     @Autowired
     IAuditService iAuditService;
-    Logger LOGGER = LoggerFactory.getLogger(TransferService.class);
+    Logger LOGGER = LoggerFactory.getLogger(DepositService.class);
     @Override
     public List<Deposit> allDeposits() {
         LOGGER.info("Liste des Deposits");
@@ -44,7 +46,11 @@ public class DepositService implements IDepositService {
 
     @Override
     public void createTransaction(DepositDto depositDto) throws CompteNonExistantException, TransactionException, AccountNotFoundException {
-        Account compteBeneficiaire = iAccountService.getCompteByRib(depositDto.getRibCompteBeneficiaire());
+        Account compteBeneficiaire = iAccountService.getAccountByRib(depositDto.getRibCompteBeneficiaire());
+        if (compteBeneficiaire== null) {
+            LOGGER.error("Compte Non existant");
+            throw new CompteNonExistantException("Compte Non existant");
+        }
         if(depositDto.getMontantVersement() == null ||
                 depositDto.getMontantVersement().compareTo(BigDecimal.ZERO) == 0) {
             LOGGER.error("Montant vide");
@@ -69,8 +75,12 @@ public class DepositService implements IDepositService {
                 .toString();
         iAuditService.audit(message, EventType.DEPOSIT);
 
+    }
 
-
-
+    @Override
+    public DepositDto getdeposit(Long id) throws DepositNonExistantException {
+        return iDepositMapper.entityToDto(depositRepository.findById(id)
+                .orElseThrow(()->new DepositNonExistantException("Virement non existant"))
+        );
     }
 }

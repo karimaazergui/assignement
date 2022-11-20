@@ -18,11 +18,25 @@ public class AccountService implements IAccountService {
         return CollectionUtils.isEmpty(accountRepository.findAll()) ? null :accountRepository.findAll();
     }
     @Override
-    public Account getCompteByRib(String rib) throws CompteNonExistantException {
+    public Account getAccountByRib(String rib) throws CompteNonExistantException {
         Account compte = accountRepository.findByRib(rib);
         if(compte == null) {
             throw new CompteNonExistantException("Compte Non existant");
         }
         return compte;
+    }
+
+    @Override
+    public Account getAccount(String nrCompte) throws CompteNonExistantException {
+        Account compte = accountRepository.findByNrCompte(nrCompte);
+        if( compte == null ) {
+            throw new CompteNonExistantException("Compte Non existant");
+        }
+        return compte;
+    }
+
+    @Override
+    public Account addAccount(Account compte) throws Exception {
+        return accountRepository.save(compte);
     }
 }

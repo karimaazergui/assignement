@@ -5,6 +5,7 @@ import ma.octo.assignement.dto.TransferDto;
 import ma.octo.assignement.exceptions.common.CompteNonExistantException;
 import ma.octo.assignement.exceptions.common.SoldeDisponibleInsuffisantException;
 import ma.octo.assignement.exceptions.common.TransactionException;
+import ma.octo.assignement.exceptions.common.TransferNonExistantException;
 
 
 import javax.security.auth.login.AccountNotFoundException;
@@ -13,6 +14,5 @@ import java.util.List;
 public interface ITransferService {
     List<Transfer> allTransfers();
     public void createTransaction (TransferDto transferDto) throws SoldeDisponibleInsuffisantException, CompteNonExistantException, TransactionException, AccountNotFoundException;
-
-
+    TransferDto getTransfer(Long id) throws TransferNonExistantException;
 }

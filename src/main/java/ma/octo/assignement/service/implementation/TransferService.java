@@ -6,7 +6,9 @@ import ma.octo.assignement.entities.util.EventType;
 import ma.octo.assignement.exceptions.common.CompteNonExistantException;
 import ma.octo.assignement.exceptions.common.SoldeDisponibleInsuffisantException;
 import ma.octo.assignement.exceptions.common.TransactionException;
+import ma.octo.assignement.exceptions.common.TransferNonExistantException;
 import ma.octo.assignement.mapper.ITransferMapper;
+import ma.octo.assignement.mapper.implimentation.TransferMapper;
 import ma.octo.assignement.repository.AccountRepository;
 import ma.octo.assignement.repository.TransferRepository;
 import ma.octo.assignement.service.IAuditService;
@@ -78,4 +80,10 @@ public class TransferService implements ITransferService {
         iAuditService.audit(message, EventType.TRANSFER);
     }
 
+    @Override
+    public TransferDto getTransfer(Long id) throws TransferNonExistantException {
+        return iTransferMapper.entityToDto(transferRepository.findById(id)
+                .orElseThrow(()->new TransferNonExistantException("Virement non existant"))
+        );
+    }
 }

@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface IAccountService {
     public List<Account> allAccounts();
-    public Account getCompteByRib(String rib) throws CompteNonExistantException;
+    public Account getAccountByRib(String rib) throws CompteNonExistantException;
+    Account getAccount(String nrCompte) throws CompteNonExistantException;
+    Account addAccount(Account compte) throws Exception;
 }
