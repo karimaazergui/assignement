@@ -1,50 +1,42 @@
 package ma.octo.assignement.mapper.implimentation;
 
-
-import ma.octo.assignement.dto.TransferDto;
 import ma.octo.assignement.domain.Account;
+import ma.octo.assignement.domain.Transaction;
 import ma.octo.assignement.domain.Transfer;
-import ma.octo.assignement.exceptions.TransactionException;
-import ma.octo.assignement.mapper.ITransferMapper;
+import ma.octo.assignement.dto.TransactionDto;
+import ma.octo.assignement.dto.TransferDto;
+import ma.octo.assignement.mapper.ITransactionMapper;
 import ma.octo.assignement.repository.AccountRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
+import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.AccountNotFoundException;
+@Service
 
-@Component
-public class  TransferMapper implements ITransferMapper {
-
+public class TransferMapper extends TransactionMapper implements ITransactionMapper {
     @Autowired
-    private AccountRepository accountRepository;
-
+    AccountRepository  accountRepository;
     @Override
-    public Transfer dtoToEntity(TransferDto transferDto) throws AccountNotFoundException, TransactionException {
-        Account sender = accountRepository.findByNrCompte(transferDto.getNrCompteEmetteur());
-        Account receiver = accountRepository.findByNrCompte(transferDto.getNrCompteBeneficiaire());
-        if (sender == null || receiver == null){
-            //todo logging
+    public Transaction dtoToEntity(TransactionDto transactionDto) throws AccountNotFoundException {
+        Transfer transfer=new Transfer();
+        BeanUtils.copyProperties(super.dtoToEntity(transactionDto),transfer);
+        Account emetteur=accountRepository.findByNrCompte(((TransferDto)transactionDto).getNrCompteEmetteur());
+        if (emetteur == null ){
             throw new AccountNotFoundException("Compte non existant");
         }
+        transfer.setCompteEmetteur(emetteur);
 
-        return Transfer.builder()
-                .compteEmetteur(sender)
-                .compteBeneficiaire(receiver)
-                .dateExecution(transferDto.getDate())
-                .montantTransfer(transferDto.getMontant())
-                .motifTransfer(transferDto.getMotif())
-                .build();
+        return transfer;
+
     }
 
     @Override
-    public TransferDto entityToDto(Transfer transfer) {
-
-        return TransferDto.builder()
-                .nrCompteBeneficiaire(transfer.getCompteBeneficiaire().getNrCompte())
-                .nrCompteEmetteur(transfer.getCompteEmetteur().getNrCompte())
-                .date(transfer.getDateExecution())
-                .motif(transfer.getMotifTransfer())
-                .montant(transfer.getMontantTransfer())
-                .build();
+    public TransactionDto entityToDto(Transaction transaction) {
+        TransferDto transferDto=new TransferDto();
+        BeanUtils.copyProperties(super.entityToDto(transaction),transferDto);
+        transferDto.setNrCompteEmetteur(((Transfer)transaction).getCompteEmetteur().getNrCompte());
+        return transferDto;
     }
 }
