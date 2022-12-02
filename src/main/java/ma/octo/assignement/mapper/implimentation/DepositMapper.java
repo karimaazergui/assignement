@@ -4,6 +4,7 @@ import ma.octo.assignement.domain.Deposit;
 import ma.octo.assignement.domain.Transaction;
 import ma.octo.assignement.dto.DepositDto;
 import ma.octo.assignement.dto.TransactionDto;
+import ma.octo.assignement.exceptions.CompteNonExistantException;
 import ma.octo.assignement.mapper.ITransactionMapper;
 import org.springframework.beans.BeanUtils;
 
@@ -14,7 +15,7 @@ import javax.security.auth.login.AccountNotFoundException;
 
 public class DepositMapper extends TransactionMapper implements ITransactionMapper {
     @Override
-    public Transaction dtoToEntity(TransactionDto transactionDto) throws AccountNotFoundException {
+    public Transaction dtoToEntity(TransactionDto transactionDto) throws CompteNonExistantException {
 
         Deposit deposit = new Deposit();
         BeanUtils.copyProperties(super.dtoToEntity(transactionDto),deposit);

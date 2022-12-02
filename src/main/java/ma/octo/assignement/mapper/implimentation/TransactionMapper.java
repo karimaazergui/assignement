@@ -3,6 +3,7 @@ package ma.octo.assignement.mapper.implimentation;
 import ma.octo.assignement.domain.Transaction;
 import ma.octo.assignement.domain.Account;
 import ma.octo.assignement.dto.TransactionDto;
+import ma.octo.assignement.exceptions.CompteNonExistantException;
 import ma.octo.assignement.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,11 +14,11 @@ public  class TransactionMapper  {
 
     @Autowired
     AccountRepository accountRepository;
-    public Transaction dtoToEntity(TransactionDto transactionDto) throws AccountNotFoundException {
+    public Transaction dtoToEntity(TransactionDto transactionDto) throws CompteNonExistantException {
 
         Account recepteur = accountRepository.findByNrCompte(transactionDto.getNrCompteBeneficiaire());
         if ( recepteur == null){
-            throw new AccountNotFoundException("Compte recepteur non existant");
+            throw new CompteNonExistantException("Compte recepteur non existant");
         }
         Transaction transaction = new Transaction();
         transaction.setCompteBeneficiaire(recepteur);

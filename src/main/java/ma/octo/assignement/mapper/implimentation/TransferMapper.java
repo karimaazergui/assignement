@@ -5,6 +5,7 @@ import ma.octo.assignement.domain.Transaction;
 import ma.octo.assignement.domain.Transfer;
 import ma.octo.assignement.dto.TransactionDto;
 import ma.octo.assignement.dto.TransferDto;
+import ma.octo.assignement.exceptions.CompteNonExistantException;
 import ma.octo.assignement.mapper.ITransactionMapper;
 import ma.octo.assignement.repository.AccountRepository;
 import org.springframework.beans.BeanUtils;
@@ -19,12 +20,12 @@ public class TransferMapper extends TransactionMapper implements ITransactionMap
     @Autowired
     AccountRepository  accountRepository;
     @Override
-    public Transaction dtoToEntity(TransactionDto transactionDto) throws AccountNotFoundException {
+    public Transaction dtoToEntity(TransactionDto transactionDto) throws CompteNonExistantException {
         Transfer transfer=new Transfer();
         BeanUtils.copyProperties(super.dtoToEntity(transactionDto),transfer);
         Account emetteur=accountRepository.findByNrCompte(((TransferDto)transactionDto).getNrCompteEmetteur());
         if (emetteur == null ){
-            throw new AccountNotFoundException("Compte non existant");
+            throw new CompteNonExistantException("Compte Emetteur non existant");
         }
         transfer.setCompteEmetteur(emetteur);
 
