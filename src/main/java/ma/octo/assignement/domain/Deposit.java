@@ -1,35 +1,23 @@
 package ma.octo.assignement.domain;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "DEP")
-@Data
-public class Deposit {
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+public class Deposit extends Transaction {
 
-  @Column(precision = 16, scale = 2, nullable = false)
-  private BigDecimal Montant;
-
-  @Column
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date dateExecution;
 
   @Column
   private String nomPrenomEmetteur;
 
-  @ManyToOne
-  private Account compteBeneficiaire;
-
-  @Column(length = 200)
-  private String motifDeposit;
 
 
 }

@@ -25,7 +25,7 @@ class TransferController {
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public void createTransaction(@RequestBody TransferDto transferDto) throws TransactionException, CompteNonExistantException, SoldeDisponibleInsuffisantException, AccountNotFoundException {
-        iTransferService.createTransaction(transferDto);
+        iTransferService.createTransfer(transferDto);
     }
 
 }

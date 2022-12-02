@@ -1,27 +1,12 @@
 package ma.octo.assignement.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.math.BigDecimal;
-import java.util.Date;
+
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class TransferDto {
-
-  private String nrCompteEmetteur;
-  private String nrCompteBeneficiaire;
-  private String motif;
-  private BigDecimal montant;
-  private Date date;
-
-
-
-
+@EqualsAndHashCode(callSuper = true)
+public class TransferDto extends TransactionDto{
+    private String nrCompteEmetteur;
 
 
 }

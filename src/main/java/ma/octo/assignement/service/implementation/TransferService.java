@@ -1,5 +1,6 @@
 package ma.octo.assignement.service.implementation;
 
+import ma.octo.assignement.domain.Account;
 import ma.octo.assignement.domain.Transfer;
 import ma.octo.assignement.dto.TransferDto;
 import ma.octo.assignement.domain.util.EventType;
@@ -7,14 +8,16 @@ import ma.octo.assignement.exceptions.CompteNonExistantException;
 import ma.octo.assignement.exceptions.SoldeDisponibleInsuffisantException;
 import ma.octo.assignement.exceptions.TransactionException;
 import ma.octo.assignement.exceptions.TransferNonExistantException;
-import ma.octo.assignement.mapper.ITransferMapper;
+import ma.octo.assignement.mapper.ITransactionMapper;
 import ma.octo.assignement.repository.AccountRepository;
 import ma.octo.assignement.repository.TransferRepository;
-import ma.octo.assignement.service.IAuditService;
+import ma.octo.assignement.service.ITransactionService;
 import ma.octo.assignement.service.ITransferService;
+import ma.octo.assignement.service.IAuditService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -28,61 +31,52 @@ public class TransferService implements ITransferService {
     @Autowired
     AccountRepository compteRepository;
    @Autowired
-   IAuditService iAuditService;
-   @Autowired
-   ITransferMapper iTransferMapper;
-    public static final int MONTANT_MAXIMAL = 10000;
-    public static final int MONTANT_MINIMAL = 10;
+   IAuditService auditService;
+
+    @Autowired
+    private ITransactionService transactionService;
+
+    @Autowired
+    @Qualifier(value = "transferMapper")
+    private ITransactionMapper transferMapper;
+
+
+
     Logger LOGGER = LoggerFactory.getLogger(TransferService.class);
     @Override
     public List<Transfer> allTransfers() {
         LOGGER.info("Liste des Transferts");
-        return CollectionUtils.isEmpty(transferRepository.findAll()) ? null :transferRepository.findAll() ;
+        return transferRepository.findAll() ;
     }
 
 
     @Override
-    public void createTransaction(TransferDto transferDto) throws SoldeDisponibleInsuffisantException, CompteNonExistantException, TransactionException, AccountNotFoundException {
+    public void createTransfer(TransferDto transferDto) throws SoldeDisponibleInsuffisantException, CompteNonExistantException, TransactionException, AccountNotFoundException {
 
-        Transfer transfer= iTransferMapper.dtoToEntity(transferDto);
+        Transfer transfer = (Transfer) transferMapper.dtoToEntity(transferDto);
+        Account emetteur = transfer.getCompteEmetteur();
 
-        if (transfer.getCompteEmetteur()== null || transfer.getCompteBeneficiaire()== null) {
-            LOGGER.error("Compte Non existant");
-            throw new CompteNonExistantException("Compte Non existant");
-        }
 
-       if (transfer.getMontantTransfer().intValue() < MONTANT_MINIMAL) {
-            LOGGER.error("Montant minimal de transfer non atteint");
-            throw new TransactionException("Montant minimal de transfer non atteint");
-        } else if (transfer.getMontantTransfer().intValue() > MONTANT_MAXIMAL) {
-            LOGGER.error("Montant maximal de transfer dépassé");
-            throw new TransactionException("Montant maximal de transfer dépassé");
-        }
+        if (emetteur== null ) {
+            LOGGER.error("Compte emetteur Non existant");
+            throw new CompteNonExistantException("Compte emetteur Non existant");}
 
-        if (transfer.getCompteEmetteur().getSolde().compareTo(transferDto.getMontant())==-1) {
+        if (emetteur.getSolde().compareTo(transferDto.getMontant())==-1) {
             LOGGER.error("Solde insuffisant pour l'utilisateur");
             throw new SoldeDisponibleInsuffisantException("Solde insuffisant pour l'utilisateur");
         }
 
 
-        transfer.getCompteEmetteur().setSolde(transfer.getCompteEmetteur().getSolde().subtract(transferDto.getMontant()));
-        compteRepository.save(transfer.getCompteEmetteur());
-
-        transfer.getCompteBeneficiaire().setSolde(new BigDecimal(transfer.getCompteBeneficiaire().getSolde().intValue() + transferDto.getMontant().intValue()));
-        compteRepository.save(transfer.getCompteBeneficiaire());
-
+        transactionService.createTransaction(transfer);
+        emetteur.setSolde(emetteur.getSolde().subtract(transferDto.getMontant()));
+        compteRepository.save(emetteur);
         transferRepository.save(transfer);
 
-        String message="Transfer depuis " + transferDto.getNrCompteEmetteur() + " vers " + transferDto
+        String message="Transfer depuis " + emetteur+ " vers " + transferDto
                 .getNrCompteBeneficiaire() + " d'un montant de " + transferDto.getMontant()
                 .toString();
-        iAuditService.audit(message, EventType.TRANSFER);
+        auditService.audit(message, EventType.TRANSFER);
     }
 
-    @Override
-    public TransferDto getTransfer(Long id) throws TransferNonExistantException {
-        return iTransferMapper.entityToDto(transferRepository.findById(id)
-                .orElseThrow(()->new TransferNonExistantException("Virement non existant"))
-        );
-    }
+
 }

@@ -4,12 +4,14 @@ import ma.octo.assignement.domain.Account;
 
 import ma.octo.assignement.domain.User;
 import ma.octo.assignement.domain.Transfer;
-import ma.octo.assignement.mapper.ITransferMapper;
 
+import ma.octo.assignement.dto.TransferDto;
+import ma.octo.assignement.mapper.ITransactionMapper;
 import ma.octo.assignement.service.IAccountService;
 import ma.octo.assignement.service.ITransferService;
 import ma.octo.assignement.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,10 +26,8 @@ public class NiceBankApplication implements CommandLineRunner {
 	private IAccountService compteService;
 	@Autowired
 	private IUserService utilisateurService;
-	@Autowired
-	private ITransferService transferService;
-	@Autowired
-	ITransferMapper iTransferMapper;
+
+
 	@Autowired
 	private PasswordEncoder encoder;
 	public static void main(String[] args) {
@@ -71,13 +71,6 @@ public class NiceBankApplication implements CommandLineRunner {
 		compte2.setUtilisateur(utilisateur2);
 		compteService.addAccount(compte2);
 
-		Transfer v = new Transfer();
-		v.setMontantTransfer(BigDecimal.TEN);
-		v.setCompteBeneficiaire(compte2);
-		v.setCompteEmetteur(compte1);
-		v.setDateExecution(new Date());
-		v.setMotifTransfer("Assignment 2021");
 
-		transferService.createTransaction(iTransferMapper.entityToDto(v));
 	}
 }

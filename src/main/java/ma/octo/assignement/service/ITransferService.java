@@ -13,6 +13,6 @@ import java.util.List;
 
 public interface ITransferService {
     List<Transfer> allTransfers();
-    public void createTransaction (TransferDto transferDto) throws SoldeDisponibleInsuffisantException, CompteNonExistantException, TransactionException, AccountNotFoundException;
-    TransferDto getTransfer(Long id) throws TransferNonExistantException;
+    public void createTransfer (TransferDto transferDto) throws SoldeDisponibleInsuffisantException, CompteNonExistantException, TransactionException, AccountNotFoundException;
+
 }

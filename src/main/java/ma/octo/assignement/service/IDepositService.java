@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface IDepositService {
     List<Deposit> allDeposits();
-    void createTransaction(DepositDto depositDto) throws CompteNonExistantException, TransactionException, AccountNotFoundException;
-    DepositDto getdeposit(Long id) throws DepositNonExistantException;
+    void createDeposit(DepositDto depositDto) throws CompteNonExistantException, TransactionException, AccountNotFoundException;
+
+
 }

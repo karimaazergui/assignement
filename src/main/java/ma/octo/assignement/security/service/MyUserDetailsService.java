@@ -3,7 +3,6 @@ package ma.octo.assignement.security.service;
 import ma.octo.assignement.domain.User;
 
 import ma.octo.assignement.repository.UserRepository;
-import ma.octo.assignement.security.service.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.userdetails.UserDetails;
